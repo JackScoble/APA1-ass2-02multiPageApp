@@ -10,17 +10,17 @@ block content
     //- Text input
     .form-group
       label(for="title") Title:
-      input(type="text" id="title" name="title" required)
+      input(type="text" id="title" name="title" pattern="^(\w| )*[0-9A-Za-z](\w| )*$" required)
     
     //- Text input
     .form-group
       label(for="author") Author:
-      input(type="text" id="author" name="author" required)
+      input(type="text" id="author" name="author" pattern="^(\w| )*[0-9A-Za-z](\w| )*$" required)
     
     //- Number input
     .form-group
       label(for="year") Year:
-      input(type="number" id="year" name="year" required min="1000" max="2023")
+      input(type="number" id="year" name="year" required min="1000" max="2025")
     
     //- Select dropdown
     .form-group
@@ -33,6 +33,16 @@ block content
         option(value="Mystery") Mystery
         option(value="Romance") Romance
         option(value="Thriller") Thriller
+
+      .form-group
+        label(for="rating") Rating:
+        select(id="rating" name="rating" required)
+          option(value="") Select a rating 
+          option(value="1") 1
+          option(value="2") 2
+          option(value="3") 3
+          option(value="4") 4
+          option(value="5") 5    
     
     //- Submit button
     button(type="submit") Add Book

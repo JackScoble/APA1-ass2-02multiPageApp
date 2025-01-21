@@ -14,21 +14,32 @@ app.use(express.urlencoded({ extended: true }));
 
 // Sample data
 const books = [
-  { id: 1, title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960, genre: "Fiction" },
-  { id: 2, title: "1984", author: "George Orwell", year: 1949, genre: "Science Fiction" },
-  { id: 3, title: "Pride and Prejudice", author: "Jane Austen", year: 1813, genre: "Romance" }
+  { id: 1, title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960, genre: "Fiction", rating: 1 },
+  { id: 2, title: "1984", author: "George Orwell", year: 1949, genre: "Science Fiction", rating: 2 },
+  { id: 3, title: "Pride and Prejudice", author: "Jane Austen", year: 1813, genre: "Romance", rating: 3 }
 ];
 
 const authors = [
-  { id: 1, name: "Harper Lee", birthYear: 1926, nationality: "American" },
-  { id: 2, name: "George Orwell", birthYear: 1903, nationality: "British" },
-  { id: 3, name: "Jane Austen", birthYear: 1775, nationality: "British" }
+  { id: 1, name: "Harper Lee", birthYear: 1926, nationality: "American", totalBooks: 10 },
+  { id: 2, name: "George Orwell", birthYear: 1903, nationality: "British", totalBooks: 11 },
+  { id: 3, name: "Jane Austen", birthYear: 1775, nationality: "British", totalBooks: 12 }
 ];
 
 // Route for home page (list view)
 app.get('/', (req, res) => {
   res.render('home', { books: books });
 });
+
+// Route to handle book removal  
+app.post('/book/:id/remove', (req, res) => {
+  const index = parseInt(req.body.index, 10);
+  if (index >= 0 && index < books.length) {
+    books.splice(index, 1);
+    res.redirect('/');
+  } else {
+    res.status(400).send('Invalid book index');
+  }
+});  
 
 // Route for book details
 app.get('/book/:id', (req, res) => {
@@ -46,10 +57,11 @@ app.get('/add-book', (req, res) => {
 app.post('/add-book', (req, res) => {
   const newBook = {
     id: books.length + 1,
-    title: req.body.title,
-    author: req.body.author,
+    title: req.body.title.trim(),
+    author: req.body.author.trim(),
     year: parseInt(req.body.year),
-    genre: req.body.genre
+    genre: req.body.genre,
+    rating: req.body.rating
   };
   books.push(newBook);
   res.redirect('/');

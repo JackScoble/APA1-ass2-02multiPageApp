@@ -17,6 +17,9 @@ body {
     background: #333;
     color: #fff;
     padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
   }
   
   nav ul {
@@ -30,10 +33,15 @@ body {
     margin-right: 20px;
   }
   
+  nav li :hover {
+    color: #999;
+  }
+  
   nav a {
     color: #fff;
     text-decoration: none;
   }
+
   
   h1, h2 {
     color: #333;
@@ -42,6 +50,8 @@ body {
   .book-list {
     list-style-type: none;
     padding: 0;
+    position: relative;
+    overflow: scroll;
   }
   
   .book-list li {
@@ -49,6 +59,14 @@ body {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+  }
+
+  .book-list li:hover {
+    background: #ddd;
+  }
+
+  .book-list li:hover form {
+    background: #ddd;
   }
   
   .book-details {
